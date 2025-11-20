@@ -1,0 +1,166 @@
+/business-starter-hub
+│
+├── index.html         // Landing page
+├── signup.html        // Signup page
+├── login.html         // Login page
+├── dashboard.html     // Member dashboard
+├── admin.html         // Admin panel
+├── css/
+│   └── styles.css     // All site styling
+├── js/
+│   ├── firebase.js    // Firebase config & auth
+│   ├── stripe.js      // Stripe placeholder integration
+│   ├── dashboard.js   // Dashboard logic
+│   └── chat.js        // Premium group chat
+└── assets/
+    └── placeholder.png // Placeholder images/videos
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Starter Hub</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+  <h1>Start Your Own Business – Landscaping, Concrete, Painting & More</h1>
+</header>
+
+<section class="pricing">
+  <h2>One-Time Setup Fee: €89</h2>
+  <p>We help you set up your business structure & choose your trade.</p>
+
+  <h2>Monthly Subscription</h2>
+  <div class="plans">
+    <div class="plan">
+      <h3>Basic €11/month</h3>
+      <p>Access to all guides, tips, and resources</p>
+      <button id="basic-btn">Sign Up</button>
+    </div>
+    <div class="plan">
+      <h3>Premium €44/month</h3>
+      <p>Access to all content + group chat support</p>
+      <button id="premium-btn">Sign Up</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Already a member? <a href="login.html">Login here</a></p>
+</footer>
+
+<script src="js/stripe.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up - Business Starter Hub</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<h1>Sign Up</h1>
+<form id="signup-form">
+  <input type="text" id="name" placeholder="Full Name" required>
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="password" id="password" placeholder="Password" required>
+  <select id="business-type" required>
+    <option value="">Choose Your Trade</option>
+    <option value="landscaping">Landscaping</option>
+    <option value="concrete">Concrete</option>
+    <option value="painting">Painting</option>
+    <option value="gardening">Gardening</option>
+    <option value="epoxy">Epoxy Floors</option>
+    <option value="tiling">Tiling</option>
+    <option value="pressure-washing">Pressure Washing</option>
+    <option value="window-washing">Window Washing</option>
+  </select>
+  <button type="submit">Create Account & Pay €89 Setup Fee</button>
+</form>
+<p>Already have an account? <a href="login.html">Login</a></p>
+
+<script src="js/firebase.js"></script>
+<script src="js/stripe.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Business Starter Hub</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<h1>Login</h1>
+<form id="login-form">
+  <input type="email" id="login-email" placeholder="Email" required>
+  <input type="password" id="login-password" placeholder="Password" required>
+  <button type="submit">Login</button>
+</form>
+<p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+
+<script src="js/firebase.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - Business Starter Hub</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+  <h1>Welcome, <span id="user-name">User</span></h1>
+  <button id="logout-btn">Logout</button>
+</header>
+
+<section id="content">
+  <h2>Your Guides & Resources</h2>
+  <p>Placeholder for video/PDF content. Update later with actual guides.</p>
+  <img src="assets/placeholder.png" alt="Content Placeholder">
+</section>
+
+<section id="premium-chat" style="display:none;">
+  <h2>Premium Group Chat</h2>
+  <div id="chat-box"></div>
+  <input type="text" id="chat-input" placeholder="Type a message">
+  <button id="send-btn">Send</button>
+</section>
+
+<section id="video-call">
+  <h2>Schedule Video Call (Placeholder)</h2>
+  <button>Book a Call</button>
+</section>
+
+<script src="js/firebase.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/chat.js"></script>
+</body>
+</html>
+// Firebase Config - replace with your project info
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
+  databaseURL: "https://YOUR_PROJECT.firebaseio.com"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+document.getElementById('basic-btn').addEventListener('click', () => {
+  alert("Redirecting to Stripe Checkout for Basic €11/month (Setup Fee included)");
+});
+
+document.getElementById('premium-btn').addEventListener('click', () => {
+  alert("Redirecting to Stripe Checkout for Premium €44/month (Setup Fee included)");
+});
