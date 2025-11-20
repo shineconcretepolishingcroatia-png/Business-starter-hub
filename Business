@@ -164,3 +164,43 @@ document.getElementById('basic-btn').addEventListener('click', () => {
 document.getElementById('premium-btn').addEventListener('click', () => {
   alert("Redirecting to Stripe Checkout for Premium €44/month (Setup Fee included)");
 });
+auth.onAuthStateChanged(user => {
+  if(user){
+    document.getElementById('user-name').innerText = user.email;
+
+    db.collection('users').doc(user.uid).get().then(doc=>{
+      if(doc.exists){
+        const data = doc.data();
+        if(data.subscriptionTier === 'Premium'){
+          document.getElementById('premium-chat').style.display = 'block';
+        }
+      }
+    });
+  } else {
+    window.location.href = "login.html";
+  }
+});
+
+document.getElementById('logout-btn').addEventListener('click', ()=>{
+  auth.signOut();
+});
+const chatBox = document.getElementById('chat-box');
+const chatInput = document.getElementById('chat-input');
+const sendBtn = document.getElementById('send-btn');
+
+sendBtn.addEventListener('click', ()=>{
+  const msg = chatInput.value;
+  if(msg){
+    chatBox.innerHTML += `<p>${msg}</p>`;
+    chatInput.value = '';
+  }
+});
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+header { background: #4CAF50; color: white; padding: 20px; text-align: center; }
+section { padding: 20px; }
+.plans { display: flex; justify-content: space-around; margin-top: 20px; }
+.plan { border: 1px solid #ccc; padding: 20px; width: 40%; text-align: center; }
+button { padding: 10px 20px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+button:hover { background: #45a049; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
